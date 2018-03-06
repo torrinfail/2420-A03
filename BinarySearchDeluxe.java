@@ -1,6 +1,5 @@
 import java.util.Arrays;
 import java.util.Comparator;
-//import edu.princeton.cs.algs4.BinarySearch;
 /**
  * @author
  * Aidan Hubert
@@ -33,10 +32,10 @@ public class BinarySearchDeluxe
 			if (comparator.compare(a[mid],key) > 0) high=mid;
 			else low=mid;
 		}
-		int p = low;
-		if (  p >= a.length ||(p > -1 && comparator.compare(a[p],key) != 0))
-			p=-1;//no key found
-		return p;
+		int returnVal = low;
+		if (  returnVal >= a.length ||(returnVal > -1 && comparator.compare(a[returnVal],key) != 0))
+			returnVal = -1;
+		return returnVal;
 	}
 
 	private static <Key> int getFirst(Key[] a, Key key, Comparator<Key> comparator)
@@ -48,9 +47,9 @@ public class BinarySearchDeluxe
 			if (comparator.compare(a[mid],key) < 0) low=mid;
 			else high=mid;
 		}
-		int p = high;
-		if ( p >= a.length || comparator.compare(a[p],key) != 0 )
-			p=-1;//no key found
-		return p;
+		int returnVal = high;
+		if ( returnVal >= a.length ||(returnVal > -1 && comparator.compare(a[returnVal],key) != 0))
+			returnVal = -1;
+		return returnVal;
 	}
 }

@@ -3,17 +3,13 @@ import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdOut;
 /**
- * This class gives auto complete functionality to a search field or any other text entry field.
  * @author Aidan Hubert
  */
 public class Autocomplete
 {
 	private Term[] terms;
 
-	/**
-	 * Creates a new autocomplete object with the given array of terms. 
-	 * Does not mutate the given array, by copying the array.
-	 */
+	
 	public Autocomplete(Term[] terms)
 	{
 		Term[] copyArray = Arrays.copyOf(terms,terms.length);
@@ -21,9 +17,7 @@ public class Autocomplete
 		this.terms = copyArray;
 	}
 	
-	/**
-	 * Returns all the terms that match the given prefix.
-	 */
+	
 	public Term[] allMatches(String prefix)
 	{
 		Term prefixTerm = new Term(prefix, 1);
@@ -37,9 +31,7 @@ public class Autocomplete
 		return matches;
 	}
 	
-	/**
-	 * Returns the total number of terms that match the given prefix.
-	 */
+	
 	public int numberOfMatches(String prefix)
 	{
 		Term prefixTerm = new Term(prefix, 1);
