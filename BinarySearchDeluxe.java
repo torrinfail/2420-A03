@@ -1,6 +1,10 @@
 import java.util.Arrays;
 import java.util.Comparator;
-import edu.princeton.cs.algs4.BinarySearch;
+//import edu.princeton.cs.algs4.BinarySearch;
+/**
+ * @author
+ * Aidan Hubert
+ */
 public class BinarySearchDeluxe
 {
 	public static <Key> int firstIndexOf(Key[] a, Key key, Comparator<Key> comparator)
@@ -8,47 +12,45 @@ public class BinarySearchDeluxe
 		if(a == null || key == null || comparator == null)
 			throw new NullPointerException("One of the passed in arguments is null.");
 
-		return Arrays.binarySearch(a, key, comparator);
+		return getFirst(a, key, comparator);
 	}
 
 	public static <Key> int lastIndexOf(Key[] a, Key key, Comparator<Key> comparator)
 	{
 		if(a == null || key == null || comparator == null)
 			throw new NullPointerException("One of the passed in arguments is null.");
-		comparator = new ReverseComparator(comparator);
-
-		return Arrays.binarySearch(a, key, comparator);	
+		
+		return getLast(a, key, comparator);	
 	}
 
-	private static class ReverseComparator <T> implements Comparator<T>
-	{
-		private Comparator<T> comparator;
-		public ReverseComparator(Comparator<T> comparator)
-		{
-			this.comparator = comparator;
-		}
 
-		public int compare(T t1, T t2)
+	private static <Key> int getLast(Key[] a, Key key, Comparator<Key> comparator)
+	{
+		int low = -1, high = a.length;
+		while (low+1 != high)
 		{
-			return -(comparator.compare(t1,t2));
+			int mid = (low+high)>>>1;
+			if (comparator.compare(a[mid],key) > 0) high=mid;
+			else low=mid;
 		}
+		int p = low;
+		if (  p >= a.length ||(p > -1 && comparator.compare(a[p],key) != 0))
+			p=-1;//no key found
+		return p;
 	}
 
-	private static <Key> int indexOf(Key[] a, Key key, Comparator<Key> comparator, boolean getLast) 
+	private static <Key> int getFirst(Key[] a, Key key, Comparator<Key> comparator)
 	{
-		int lo = 0;
-		int hi = a.length - 1;
-		int mid;
-		int returnVal = -1;
-		while (lo <= hi) {
-			// Key is in a[lo..hi] or not present.
-			mid = lo + (hi - lo) / 2;
-			if      (comparator.compare(key,a[mid]) < 0)
-			       	hi = mid - 1;
-			else if (comparator.compare(key,a[mid]) > 0)
-			       	lo = mid + 1;
-			else return mid;
+		int low = -1, high = a.length;
+		while (low+1 != high)
+		{
+			int mid = (low+high)>>>1;
+			if (comparator.compare(a[mid],key) < 0) low=mid;
+			else high=mid;
 		}
-		return returnVal;
+		int p = high;
+		if ( p >= a.length || comparator.compare(a[p],key) != 0 )
+			p=-1;//no key found
+		return p;
 	}
 }

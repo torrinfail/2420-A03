@@ -2,6 +2,10 @@ import java.lang.Comparable;
 import java.util.Comparator;
 import java.util.Scanner;
 import java.util.Arrays;
+/**
+ * @author
+ * Aidan Hubert
+ */
 public class Term implements Comparable<Term>
 {
 	private String query;
@@ -42,7 +46,7 @@ public class Term implements Comparable<Term>
 	{
 		public int compare(Term t1, Term t2)
 		{
-			return -(int)Math.ceil(t1.weight-t2.weight);
+			return (int)(-(Math.ceil(t1.weight-t2.weight)));
 		}
 	}
 
@@ -56,22 +60,17 @@ public class Term implements Comparable<Term>
 
 		public int compare(Term t1, Term t2)
 		{
-			String sub1 = t1.query.substring(0,r-1);	
-			String sub2 = t2.query.substring(0,r-1);
+			String sub1;
+			String sub2;
+			if(r > t1.query.length())
+				sub1 = t1.query;
+			else
+				sub1 = t1.query.substring(0,r);
+			if(r > t2.query.length())
+				sub2 = t2.query;
+			else 	
+				sub2 = t2.query.substring(0,r);
 			return sub1.compareTo(sub2);
 		}
-	}
-
-	public static void main(String[] args)
-	{
-		Term[] terms = new Term[5];
-		Scanner input = new Scanner(System.in);
-		for(double d = 0; d < 5; d++)
-		{
-			terms[(int)d] = new Term(input.nextLine(),d+1);
-		}
-		Arrays.sort(terms,Term.byPrefixOrder(2));
-		System.out.println(Arrays.toString(terms));
-		System.out.println(BinarySearchDeluxe.firstIndexOf(terms,terms[3],Term.byPrefixOrder(2)));
 	}
 }
